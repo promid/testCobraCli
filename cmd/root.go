@@ -26,6 +26,7 @@ to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Run:")
 		name, _ := cmd.Flags().GetString("name")
 		fmt.Printf("%s says %s\n", name, saySomething)
 	},
@@ -45,9 +46,11 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&saySomething, "say", "", "what you want say")
+	rootCmd.PersistentFlags().StringVar(&saySomething, "say", "default words", "what you want say")
+	fmt.Printf("init: saySomething = %s\n", saySomething)
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().StringP("name", "t", "Bei", "Help message for name")
+	defaultName := *rootCmd.Flags().StringP("name", "t", "Bei", "Help message for name")
+	fmt.Printf("init: name = %s\n", defaultName)
 }
