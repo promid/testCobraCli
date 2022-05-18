@@ -1,4 +1,4 @@
-module testCobraCli
+module github.com/promid/testCobraCli
 
 go 1.18
 
