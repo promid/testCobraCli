@@ -14,6 +14,7 @@ import (
 var saySomething string
 
 // rootCmd represents the base command when called without any subcommands
+
 var rootCmd = &cobra.Command{
 	Use:   "testCobraCli",
 	Short: "A brief description of your application",
@@ -28,6 +29,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Run:")
 		name, _ := cmd.Flags().GetString("name")
+
 		fmt.Printf("%s says %s\n", name, saySomething)
 	},
 }
@@ -35,10 +37,14 @@ to quickly create a Cobra application.`,
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	opts := NewRunOptions()
+	opts.AddFlags(rootCmd.Flags())
+	// flags will be parsed in rootCmd.Execute(), so pflag.Parse() doesn't need to be called explicitly
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
+	fmt.Printf(opts.Test)
 }
 
 func init() {
